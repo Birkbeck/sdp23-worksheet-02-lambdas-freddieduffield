@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class StringUtils {
@@ -12,14 +11,14 @@ public class StringUtils {
         return lambda.test(s1, s2) ? s1 : s2;
     }
 
-    static List<String> allMatches(List<String> listToCheck, Predicate<String> matches) {
-        List<String> listOfMatches = new ArrayList<>();
-
-        for (String str: listToCheck) {
-            if (matches.test(str)) {
-                listOfMatches.add(str);
+    static <T> List<T> allMatches(List<T> listToCheck, Predicate<T> matches) {
+        List<T> listOfMatches = new ArrayList<>();
+        listToCheck.forEach((element) -> {
+            if (matches.test(element)) {
+                listOfMatches.add(element);
             }
-        }
+        });
+
         return listOfMatches;
     }
 
@@ -39,5 +38,10 @@ public class StringUtils {
         System.out.println(shortWords);
         System.out.println(wordsWithB);
         System.out.println(evenLengthWords);
+
+        List<Integer> numsToTest = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 999);
+        List<Integer> numbersGreaterThan5 = StringUtils.allMatches(numsToTest, i -> i > 5);
+
+        System.out.println(numbersGreaterThan5);
     }
 }
