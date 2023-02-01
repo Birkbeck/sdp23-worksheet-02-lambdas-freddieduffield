@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class StringUtils {
@@ -20,6 +21,13 @@ public class StringUtils {
         });
 
         return listOfMatches;
+    }
+
+    static <String> List<String> transformedList(List<String> list, Function<String, String> function) {
+        return list
+                .stream()
+                .map(function)
+                .toList();
     }
 
     public static void main(String[] args) {
@@ -43,5 +51,13 @@ public class StringUtils {
         List<Integer> numbersGreaterThan5 = StringUtils.allMatches(numsToTest, i -> i > 5);
 
         System.out.println(numbersGreaterThan5);
+
+        List<String> excitingWords = StringUtils.transformedList(words, s -> s + "!");
+        List<String> eyeWords = StringUtils.transformedList(words, s -> s.replace("i", "eye"));
+        List<String> upperCaseWords = StringUtils.transformedList(words, String::toUpperCase);
+
+        System.out.println(excitingWords);
+        System.out.println(eyeWords);
+        System.out.println(upperCaseWords);
     }
 }
