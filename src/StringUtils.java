@@ -8,7 +8,7 @@ public class StringUtils {
         return lambda.test(s1, s2) ? s1 : s2;
     }
 
-    static String betterEntry(String s1, String s2, TwoElementPredicate lambda) {
+    static String betterEntry(String s1, String s2, TwoElementPredicate<String> lambda) {
         return lambda.test(s1, s2) ? s1 : s2;
     }
 
@@ -23,7 +23,7 @@ public class StringUtils {
         return listOfMatches;
     }
 
-    static <String> List<String> transformedList(List<String> list, Function<String, String> function) {
+    static <T> List<T> transformedList(List<T> list, Function<T, T> function) {
         return list
                 .stream()
                 .map(function)
